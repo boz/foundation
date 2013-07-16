@@ -65,6 +65,22 @@
         }
 
         // $(this.scope).data('fndtn-tooltips', true);
+      } else if (options.direct) {
+        /* Allow manually showing/hiding tooltip.
+         * Needed for working with ZeroClipboard
+         *
+         * ex:
+         *
+         * var clip = new ZeroClipboard($el)
+         * clip.on('mouseover',function(client) {
+         *   $(this).foundation('tooltips','showOrCreateTip',{direct: true});
+         * });
+         * clip.on('mouseout',function(client) {
+         *   $(this).foundation('tooltips','hide',{direct: true});
+         * });
+         *
+         */
+        return this[method].call(this,$(scope));
       } else {
         return this[method].call(this, options);
       }
@@ -102,6 +118,24 @@
       }
 
       return (id && id.length > 0) ? id : dataSelector;
+    },
+
+    /**
+     * Change the tooltip text.
+     *
+     * ex:
+     * clip.on('complete',function(client,args){
+     *   $(this).attr('title','Copied!');
+     *   $(this).foundation('tooltips','retip',{direct: true});
+     * });
+     */
+    retip: function($target) {
+      var $tip = this.getTip($target),
+         _this = this;
+      $tip.fadeOut(150,function(){
+        $tip.remove();
+        _this.create($target);
+      });
     },
 
     create : function ($target) {
