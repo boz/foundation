@@ -132,10 +132,14 @@
     retip: function($target) {
       var $tip = this.getTip($target),
          _this = this;
-      $tip.fadeOut(150,function(){
-        $tip.remove();
+      if($tip && $tip.length > 0) {
+        $tip.fadeOut(150,function(){
+          $tip.remove();
+          _this.create($target);
+        });
+      } else {
         _this.create($target);
-      });
+      }
     },
 
     create : function ($target) {
