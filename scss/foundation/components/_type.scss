@@ -47,6 +47,7 @@ $paragraph-text-rendering: optimizeLegibility !default;
 $code-color: darken($alert-color, 15%) !default;
 $code-font-family: Consolas, 'Liberation Mono', Courier, monospace !default;
 $code-font-weight: bold !default;
+$include-code-classes: true !default;
 
 // We use these to style anchors
 $anchor-text-decoration: none !default;
@@ -230,10 +231,12 @@ $microformat-abbr-font-decoration: none !default;
     line-height: inherit;
   }
 
-  code {
-    font-family: $code-font-family;
-    font-weight: $code-font-weight;
-    color: $code-color;
+  @if $include-code-classes {
+    code {
+      font-family: $code-font-family;
+      font-weight: $code-font-weight;
+      color: $code-color;
+    }
   }
 
   /* Lists */
